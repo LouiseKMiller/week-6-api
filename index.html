@@ -2,13 +2,10 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Ajax-API App - Louise Miller Assignment Week 6</title>
 	<!-- css -->
 	<link rel="stylesheet" href="assets/css/reset.css">
 	<link rel="stylesheet" href="assets/css/style.css">
-
-	<script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
 </head>
 
 
@@ -16,10 +13,36 @@
 -->
 
 <body>
+	<div class="mainBlock page-wrap">
+<!--  DIV CONTAINER FOR BUTTONS --> 
+		<div id="buttonDiv">
+	
+		</div>
 
+
+<!--  FORM FOR USER TO REQUEST NEW BUTTON FOR NEW GIPHY QUERY --> 
+
+		<form id="requestForm">
+			<label for="giphy-subject">ENTER NEW ACTION HERE
+				<input type="text" name="giphy-subject" id="userInput">
+			</label>
+			<input type="submit" value="ADD" id="inputButton"> 
+
+		</form>
+	</div> <!-- end of Main division -->
+
+<!--  GIPHs go here --> 
+		<div id="actionsDiv">
+
+		</div>
+
+
+ <!-- STICKY FOOTER HERE  -->
 	<footer class="site-footer">
 		<small>&copy; Copyright 2016 Louise K. Miller</small>
 	</footer>
+
+	<script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
 
 	<script type="text/javascript" src="assets/javascript/app.js"></script>
 </body>

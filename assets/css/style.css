@@ -8,6 +8,16 @@
  	box-sizing: border-box;
  }
 
+label, input {
+	display: block;
+}
+
+.actionButton {
+	background-color: red;
+	margin: 5px 8px;
+	padding: 5px 20px;
+};
+
 
 
 
