@@ -16,11 +16,33 @@ var allActions = [
 	 {action: "crying",
 	 imagesInfo: []},
 	 {action: "driving",
-	 imagesInfo: []}
+	 imagesInfo: []},
+	 {action: "fist bumping",
+	 imagesInfo: []},
+	 {action: "winking",
+	 imagesInfo: []},
+	 {action: "burping",
+	 imagesInfo: []},
+	 {action: "whistling",
+	 imagesInfo: []},
+	 {action: "dancing",
+	 imagesInfo: []},
+	 {action: "tripping",
+	 imagesInfo: []},
+	 {action: "snoring",
+	 imagesInfo: []},
+	 {action: "coding",
+	 imagesInfo: []},
+	 {action: "eating",
+	 imagesInfo: []},
+	 {action: "falling",
+	 imagesInfo: []},
 	];
 
 //=================================
 //  THIS CREATES A BUTTON FOR EACH ACTION IN THE allActions OBJECT
+// each button has class .actionButton
+// and dttributes data-name =action, data-index = allActions array index
 
 function showButtons() {
 	$('#buttonDiv').empty();
@@ -53,9 +75,12 @@ $('#inputButton').on("click", function(event){
 
  $('#buttonDiv').on('click', '.actionButton', function(event) {
 
- 	// get data-name of button that initiated the event
-   var action = $(this).attr('data-name');
-   var actionIndex = $(this).attr('data-index');
+ 	$('#actionsDiv').empty();
+ 	// get data-name and data-index of button that initiated the event
+ 	// index points you to correct object in allActions array
+ 	//
+   var action = $(this).data('name');
+   var actionIndex = $(this).data('index');
        
     // create the query URL.  it uses an api-key and tag of cats
    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + action + "&api_key=dc6zaTOxFJmzC&limit=10"
@@ -69,49 +94,60 @@ $('#inputButton').on("click", function(event){
         // loop through the response array - should be 10
         for (var i=0; i<response.data.length; i++) {
             // store the image URL that is found in the response data field data.image_original_url
-         	var imageUrl = response.data[i].images.original_still.url;
+         	var stillUrl = response.data[i].images.original_still.url;
 
-   	    	var videoUrl = response.data[i].images.original.url;
+   	    	var animateUrl = response.data[i].images.original.url;
+
+   	    	var rating = response.data[i].rating;
 
       		// store jquery object
       		var ivContainer = $("<div>");
      		var actionImage = $("<img>");
-      		var actionVideo = $("<video>");
             
       		// to the image or video container, add the ivContainer class
       		ivContainer.addClass('ivContainer');
+      		ivContainer.attr('data-imageIndex', i);
+           	ivContainer.attr('data-actionIndex', actionIndex);
+
 
       		// to the image jquery object, we add the attributes of the giphy still URL and an alt attribute
-          	actionImage.attr('src', imageUrl);
+          	actionImage.attr('src', stillUrl);
            	actionImage.attr('alt', 'GIPHy image');
-           	actionImage.attr('data-index', i);
            	actionImage.height('200px');
            	actionImage.width('250px');
-           	actionImage.addClass('imageVideoObj');
-
-           	// to the video jquery object, we add the attributes of the giphy video URL and video type
-           	actionVideo.attr('src', videoUrl);
-           	actionVideo.addClass('imageVideoObj');
+           	actionImage.attr('data-state', "still");
 
         	// prepend still image to the images div
         	$('#actionsDiv').prepend(ivContainer);
+        	$('.ivContainer').eq(0).append("<h2>Rating: "+rating+"</h2>");
         	$('.ivContainer').eq(0).append(actionImage);
 
         	// store the information in the allActions object
         	allActions[actionIndex].imagesInfo.push({
-       			"stillElement": actionImage,
-       			"videoElement" : actionVideo,
-       			"status" : "still"
+       			"stillURL": stillUrl,
+       			"animateURL" : animateUrl
         		})
             } // end of for loop
     });
 });  // end of on click event handler
+//======================================
+//  EVENT HANDLER FOR IMAGE
+//  learning about event delegation 
 
- $('#actionsDiv').on('click', '.imageVideoObj', function(event) {
- 	var imageIndex = $(this).attr('data-index');
- 	var imageStatus = $(this).status;
- 	console.log ('you are here');
+ $('#actionsDiv').on('click', 'img', function(event) {
 
+ 	var actionIndex = $(this).closest('.ivContainer').data('actionindex');
+ 	var imageIndex = $(this).closest('.ivContainer').data('imageindex');
+
+ 	if  ($(this).attr('data-state')=="still") {
+ 		$(this).attr('src', allActions[actionIndex].imagesInfo[imageIndex].animateURL);
+ 		$(this).attr('data-state', 'animate');
+ 	}
+ 	else {
+ 		$(this).attr('src', allActions[actionIndex].imagesInfo[imageIndex].stillURL);
+ 		$(this).attr('data-state', 'still');
+ 	}
+ 	
  });
 
 
