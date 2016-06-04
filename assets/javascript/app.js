@@ -5,6 +5,8 @@ window.onload = function(){
 
 //======================================================
 // OBJECT THAT HOLDS ALL GIPH INFORMATION
+//  I probably didn't need to include the imagesInfo array here.
+
 
 var allActions = [
 	{action: "pointing",
