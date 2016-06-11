@@ -61,14 +61,15 @@ function showButtons() {
 //======================================
 //  EVENT HANDLER FOR USER SUBMISSION OF NEW ACTION
 
-$('#inputButton').on("click", function(event){
+$('#requestForm').on("submit", function(event){
+	event.preventDefault();
 	allActions.push(
 		{action:($('#userInput').val()),
 		imagesInfo: []});
 	console.log ($('#userInput').val());
 	showButtons();
 	$("#userInput").val("");
-	event.preventDefault(); // prevent default action associated with form submit
+	// event.preventDefault(); // prevent default action associated with form submit
 });
 
 //======================================
